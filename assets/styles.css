@@ -1,0 +1,1599 @@
+/* Professional Dark Theme for Earthquake Analysis Dashboard */
+
+/* Root Variables for Consistent Color Scheme */
+:root {
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+  --bg-card: rgba(30, 35, 42, 0.3);
+  --border-color: #30363d;
+  --border-accent: #58a6ff;
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --text-muted: #b5b7bb;
+  --accent-primary: #58a6ff;
+  --accent-secondary: #1f6feb;
+  --success-color: #2ea043;
+  --warning-color: #f79000;
+  --danger-color: #f85149;
+  --hover-bg: rgba(88, 166, 255, 0.08);
+  --transition: all 0.2s ease-in-out;
+  
+  /* Plot Colors for Better Visibility and Contrast */
+  --plot-line-1: #58a6ff;
+  --plot-line-2: #f85149;
+  --plot-line-3: #2ea043;
+  --plot-line-4: #f79000;
+  --plot-line-5: #e377c2;
+  --plot-bg: rgba(22, 27, 34, 0.95);
+  --plot-grid: rgba(48, 54, 61, 0.4);
+}
+
+/* Global Styles */
+body {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif !important;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container and Layout */
+.container-fluid, .container {
+  background: var(--bg-primary) !important;
+  padding: 0 20px !important;
+}
+
+.app-container {
+  min-height: 100vh;
+  background: var(--bg-primary) !important;
+}
+
+.main-content {
+  padding: 15px 0;
+  min-height: calc(100vh - 120px);
+}
+
+.page-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+/* Page Headers and Sections */
+.page-header {
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 2.2rem !important;
+  margin-bottom: 8px !important;
+  font-weight: 600 !important;
+}
+
+.page-header .lead {
+  font-size: 1.05rem !important;
+  opacity: 0.8;
+  font-weight: 400 !important;
+  margin-bottom: 0 !important;
+}
+
+.section-title {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  font-size: 1.4rem !important;
+  border-bottom: 2px solid var(--accent-primary) !important;
+  padding-bottom: 6px !important;
+  margin-bottom: 20px !important;
+  display: inline-block;
+}
+
+/* Navigation Styling */
+.navbar {
+  background: var(--bg-secondary) !important;
+  border-bottom: 2px solid var(--border-color) !important;
+  padding: 12px 0 !important;
+  margin-bottom: 25px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+}
+
+.navbar-brand {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  font-size: 1.1rem !important;
+  white-space: nowrap !important;
+}
+
+.navbar-nav {
+  flex-wrap: wrap !important;
+  max-width: 100% !important;
+}
+
+.navbar-nav .nav-item {
+  margin: 2px !important;
+}
+
+.navbar-nav .nav-link {
+  color: var(--text-secondary) !important;
+  font-weight: 500 !important;
+  padding: 6px 12px !important;
+  border-radius: 6px !important;
+  transition: var(--transition) !important;
+  margin: 0 2px !important;
+  border: 1px solid transparent !important;
+  font-size: 0.85rem !important;
+  white-space: nowrap !important;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--text-primary) !important;
+  background: var(--hover-bg) !important;
+  border-color: var(--border-accent) !important;
+  box-shadow: 0 2px 8px rgba(88, 166, 255, 0.2) !important;
+}
+
+/* Active Navigation Styling */
+.nav-link-custom {
+  position: relative !important;
+  transition: var(--transition) !important;
+  padding: 6px 10px !important;
+  margin: 0 2px !important;
+  border-radius: 6px !important;
+  color: var(--text-secondary) !important;
+  font-size: 0.85rem !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+}
+
+.nav-link-custom:hover {
+  color: var(--text-primary) !important;
+  background: var(--hover-bg) !important;
+  text-decoration: none !important;
+}
+
+.nav-link-custom.active {
+  color: var(--accent-primary) !important;
+  background: rgba(88, 166, 255, 0.1) !important;
+  border: 1px solid var(--accent-primary) !important;
+}
+
+.nav-link-custom.active::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -2px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 2px !important;
+  background: var(--accent-primary) !important;
+  border-radius: 2px !important;
+}
+
+.nav-link-custom i {
+  transition: var(--transition) !important;
+  font-size: 0.8rem !important;
+  margin-right: 4px !important;
+}
+
+.nav-link-custom:hover i,
+.nav-link-custom.active i {
+  transform: translateY(-1px) !important;
+  color: var(--accent-primary) !important;
+}
+
+/* Responsive navigation */
+@media (max-width: 1200px) {
+  .navbar-brand {
+    font-size: 1rem !important;
+  }
+  
+  .nav-link-custom {
+    font-size: 0.8rem !important;
+    padding: 5px 8px !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar-nav {
+    flex-direction: column !important;
+    width: 100% !important;
+    margin-top: 10px !important;
+  }
+  
+  .nav-link-custom {
+    margin: 2px 0 !important;
+    text-align: center !important;
+  }
+}
+
+/* Card Styling - Using Borders Instead of Fills */
+.card {
+  background: var(--bg-card) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  transition: var(--transition) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(10px) !important;
+  z-index: 20 !important;
+  position: relative !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
+.card:hover {
+  border-color: var(--accent-primary) !important;
+  background: rgba(88, 166, 255, 0.03) !important;
+  box-shadow: 0 0 20px rgba(88, 166, 255, 0.1) !important;
+}
+
+.card-body {
+  padding: 20px !important;
+  background: transparent !important;
+  overflow: hidden !important;
+}
+
+.card-title {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  margin-bottom: 12px !important;
+  font-size: 1.05rem !important;
+}
+
+.card-header {
+  background: rgba(48, 54, 61, 0.2) !important;
+  border-bottom: 2px solid var(--border-color) !important;
+  padding: 12px 20px !important;
+  border-radius: 6px 6px 0 0 !important;
+}
+
+/* Graph Container Styling - Optimized Heights */
+.card-body .js-plotly-plot,
+.card-body .dash-graph,
+.card-body div[data-dash-is-loading] {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Specific height controls for different graph types */
+.card-body .js-plotly-plot .plotly {
+  height: 100% !important;
+  width: 100% !important;
+  max-height: inherit !important;
+}
+
+.card-body .js-plotly-plot .plotly .svg-container {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* Card Container Flexbox Layout */
+.row .col .card {
+  display: flex !important;
+  flex-direction: column !important;
+  height: auto !important;
+  min-height: 420px !important;
+}
+
+.row .col .card .card-body {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 15px !important;
+}
+
+/* Graph Height Management by Content Type */
+.row .col .card .card-body .js-plotly-plot {
+  flex: 1 !important;
+  height: 380px !important;
+  min-height: 350px !important;
+  max-height: 450px !important;
+}
+
+/* Special handling for larger visualization types */
+.card-body .js-plotly-plot[id*="map"],
+.card-body .js-plotly-plot[id*="3d"],
+.card-body .js-plotly-plot[id*="surface"] {
+  height: 480px !important;
+  max-height: 520px !important;
+}
+
+/* Smaller charts like histograms and simple plots */
+.card-body .js-plotly-plot[id*="hist"],
+.card-body .js-plotly-plot[id*="box"],
+.card-body .js-plotly-plot[id*="violin"] {
+  height: 320px !important;
+  max-height: 360px !important;
+}
+
+/* Medium charts for correlation matrices and heatmaps */
+.card-body .js-plotly-plot[id*="heatmap"],
+.card-body .js-plotly-plot[id*="corr"],
+.card-body .js-plotly-plot[id*="matrix"] {
+  height: 400px !important;
+  max-height: 440px !important;
+}
+
+/* Responsive graph heights */
+@media (max-width: 768px) {
+  .row .col .card .card-body .js-plotly-plot {
+    height: 280px !important;
+    min-height: 250px !important;
+    max-height: 320px !important;
+  }
+  
+  .card-body .js-plotly-plot[id*="map"],
+  .card-body .js-plotly-plot[id*="3d"],
+  .card-body .js-plotly-plot[id*="surface"] {
+    height: 350px !important;
+    max-height: 380px !important;
+  }
+  
+  .row .col .card {
+    min-height: 350px !important;
+    margin-bottom: 20px !important;
+  }
+}
+
+/* Prevent graph overflow and ensure proper scaling */
+.js-plotly-plot .plotly-graph-div {
+  overflow: visible !important;
+}
+
+.js-plotly-plot .main-svg {
+  overflow: visible !important;
+}
+
+/* Grid layout improvements */
+.row {
+  margin-left: -10px !important;
+  margin-right: -10px !important;
+}
+
+.row > .col,
+.row > .col-lg-6,
+.row > .col-md-6,
+.row > .col-sm-12 {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  margin-bottom: 20px !important;
+}
+
+/* KPI Card Specific Styling - Border Focus */
+.kpi-card {
+  text-align: center !important;
+  background: rgba(22, 27, 34, 0.6) !important;
+  border: 2px solid var(--border-color) !important;
+  padding: 20px !important;
+  border-radius: 8px !important;
+  transition: var(--transition) !important;
+  backdrop-filter: blur(8px) !important;
+  z-index: 10 !important;
+  position: relative !important;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px) !important;
+  border-color: var(--accent-primary) !important;
+  background: rgba(88, 166, 255, 0.05) !important;
+  box-shadow: 0 4px 20px rgba(88, 166, 255, 0.15) !important;
+}
+
+.kpi-value {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: var(--accent-primary) !important;
+  margin: 8px 0 !important;
+  text-shadow: 0 0 10px rgba(88, 166, 255, 0.3) !important;
+}
+
+.kpi-label {
+  font-size: 0.9rem !important;
+  color: var(--text-secondary) !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+}
+
+/* Form Controls */
+.form-control, .form-select {
+  background: rgba(30, 35, 42, 0.8) !important;
+  border: 2px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  border-radius: 6px !important;
+  transition: var(--transition) !important;
+}
+
+.form-control:focus, .form-select:focus {
+  background: rgba(88, 166, 255, 0.08) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25) !important;
+}
+
+/* Dropdown Styling */
+.Select-control {
+  background: rgba(30, 35, 42, 0.8) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 6px !important;
+  z-index: 900 !important;
+}
+
+.Select-menu-outer {
+  background: var(--bg-secondary) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  z-index: 1600 !important;
+  position: fixed !important;
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+}
+
+.Select-option {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+}
+
+.Select-option:hover {
+  background: var(--hover-bg) !important;
+  color: var(--accent-primary) !important;
+}
+
+/* Dash Dropdown Specific */
+.dash-dropdown {
+  z-index: 1500 !important;
+  position: relative !important;
+}
+
+.dash-dropdown .Select {
+  z-index: 1500 !important;
+}
+
+.dash-dropdown .Select-menu-outer {
+  z-index: 1501 !important;
+  background: var(--bg-secondary) !important;
+  border: 2px solid var(--accent-primary) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7) !important;
+  margin-top: 4px !important;
+  overflow: hidden !important;
+  position: absolute !important;
+}
+
+.dash-dropdown .Select-option {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  padding: 12px 16px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.dash-dropdown .Select-option:last-child {
+  border-bottom: none !important;
+}
+
+.dash-dropdown .Select-option:hover {
+  background: var(--hover-bg) !important;
+  color: var(--accent-primary) !important;
+}
+
+.dash-dropdown .Select-option.is-focused {
+  background: var(--hover-bg) !important;
+  color: var(--accent-primary) !important;
+}
+
+.dash-dropdown .Select-option.is-selected {
+  background: rgba(88, 166, 255, 0.1) !important;
+  color: var(--accent-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* Button Styling */
+.btn-primary {
+  background: transparent !important;
+  border: 2px solid var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+  font-weight: 500 !important;
+  border-radius: 6px !important;
+  transition: var(--transition) !important;
+  box-shadow: 0 0 10px rgba(88, 166, 255, 0.2) !important;
+}
+
+.btn-primary:hover {
+  background: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--bg-primary) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4) !important;
+}
+
+/* Date Picker Styling */
+.DateInput_input {
+  background: rgba(30, 35, 42, 0.9) !important;
+  color: var(--text-primary) !important;
+  border: 2px solid var(--border-color) !important;
+  font-weight: 600 !important;
+  border-radius: 6px !important;
+  padding: 8px 12px !important;
+  width: 100% !important;
+}
+
+.SingleDatePicker {
+  width: 100% !important;
+  z-index: 1500 !important;
+  position: relative !important;
+}
+
+.SingleDatePickerInput {
+  background: rgba(30, 35, 42, 0.9) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  width: 100% !important;
+}
+
+.SingleDatePicker_picker {
+  background: var(--bg-secondary) !important;
+  border: 2px solid var(--accent-primary) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8) !important;
+  z-index: 1600 !important;
+  position: fixed !important;
+}
+
+.SingleDatePicker_picker__directionLeft {
+  top: 40px !important;
+}
+
+/* Hover and focus states for date inputs */
+.DateInput_input:hover {
+  border-color: var(--accent-primary) !important;
+}
+
+.DateInput_input:focus {
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25) !important;
+}
+
+/* Calendar styling for single date picker */
+.SingleDatePicker .DayPicker {
+  background: var(--bg-secondary) !important;
+}
+
+.SingleDatePicker .CalendarMonth {
+  background: transparent !important;
+}
+
+.SingleDatePicker .CalendarDay {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 4px !important;
+}
+
+.SingleDatePicker .CalendarDay:hover {
+  background: var(--hover-bg) !important;
+  color: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+.SingleDatePicker .CalendarDay__selected {
+  background: var(--accent-primary) !important;
+  color: var(--bg-primary) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+/* Date picker container spacing */
+.date-picker-container {
+  margin-bottom: 1rem !important;
+}
+
+.date-picker-label {
+  color: var(--text-primary) !important;
+  margin-bottom: 0.5rem !important;
+  font-weight: 500 !important;
+}
+
+.DateRangePickerInput {
+  background: rgba(30, 35, 42, 0.9) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  z-index: 1500 !important;
+  position: relative !important;
+}
+
+.DateRangePicker {
+  z-index: 1501 !important;
+  position: relative !important;
+}
+
+.DateRangePicker__picker {
+  background: var(--bg-secondary) !important;
+  border: 2px solid var(--accent-primary) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8) !important;
+  z-index: 1600 !important;
+  position: fixed !important;
+}
+
+.DateRangePickerInput__display-text {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+}
+
+.DateInput {
+  background: transparent !important;
+}
+
+.DateInput__display-text {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  border: none !important;
+}
+
+.SingleDatePickerInput__display-text {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+}
+
+.CalendarMonth {
+  background: transparent !important;
+}
+
+.CalendarMonth_table {
+  background: transparent !important;
+}
+
+.CalendarDay {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 4px !important;
+}
+
+.CalendarDay:hover {
+  background: var(--hover-bg) !important;
+  color: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+.CalendarDay__selected {
+  background: var(--accent-primary) !important;
+  color: var(--bg-primary) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+.CalendarDay__selected:hover {
+  background: var(--accent-secondary) !important;
+  color: var(--bg-primary) !important;
+}
+
+.DayPickerNavigation_button {
+  background: var(--bg-tertiary) !important;
+  border: 2px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  border-radius: 6px !important;
+}
+
+.DayPickerNavigation_button:hover {
+  background: var(--hover-bg) !important;
+  border-color: var(--accent-primary) !important;
+}
+
+.CalendarMonth_caption {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* Date picker navigation and month/year styling */
+.DayPicker {
+  background: transparent !important;
+}
+
+.DayPicker__month {
+  background: transparent !important;
+}
+
+.DayPicker__week-header {
+  color: var(--text-secondary) !important;
+  font-weight: 600 !important;
+}
+
+.DayPicker__week-header-ul {
+  background: transparent !important;
+}
+
+.CalendarMonthGrid {
+  background: transparent !important;
+}
+
+.CalendarMonthGrid__month {
+  background: transparent !important;
+}
+
+.DayPicker__day {
+  color: var(--text-primary) !important;
+}
+
+.DayPicker__day--outside {
+  color: var(--text-muted) !important;
+}
+
+.DayPicker__day--today {
+  background: rgba(88, 166, 255, 0.1) !important;
+  color: var(--accent-primary) !important;
+  font-weight: 600 !important;
+}
+
+.DayPicker__day--disabled {
+  color: var(--text-muted) !important;
+  background: transparent !important;
+}
+
+/* Month and year dropdowns in date picker */
+.CalendarMonth__month_navigation {
+  color: var(--text-primary) !important;
+}
+
+/* Graph Container - Enhanced for Better Plot Visibility */
+.js-plotly-plot {
+  background: transparent !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  padding: 8px !important;
+  backdrop-filter: none !important;
+}
+
+.plotly .main-svg {
+  background: transparent !important;
+  border-radius: 6px !important;
+}
+
+/* Plotly Plot Styling for Better Visibility */
+.js-plotly-plot .plotly .bg {
+  fill: transparent !important;
+}
+
+/* Mapbox specific styling */
+.js-plotly-plot .mapboxgl-map {
+  background: transparent !important;
+}
+
+.js-plotly-plot .mapboxgl-canvas-container canvas {
+  border-radius: 6px !important;
+}
+
+/* Ensure plotly traces are visible */
+.js-plotly-plot .scattermapbox {
+  opacity: 1 !important;
+}
+
+/* Fix for plotly modebar in dark theme */
+.modebar {
+  background: rgba(22, 27, 34, 0.9) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 4px !important;
+}
+
+.modebar-btn {
+  color: var(--text-primary) !important;
+}
+
+.modebar-btn:hover {
+  background: var(--hover-bg) !important;
+}
+
+/* Controls Section - Border Style */
+.controls-section {
+  background: rgba(30, 35, 42, 0.5) !important;
+  border-radius: 6px !important;
+  padding: 16px !important;
+  border: 2px solid var(--border-color) !important;
+  backdrop-filter: blur(5px) !important;
+  z-index: 100 !important;
+  position: relative !important;
+}
+
+/* Alert Styling */
+.alert-danger {
+  background: rgba(248, 81, 73, 0.1) !important;
+  border: 2px solid var(--danger-color) !important;
+  color: var(--danger-color) !important;
+  border-radius: 8px !important;
+  backdrop-filter: blur(5px) !important;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+p {
+  color: var(--text-secondary) !important;
+  margin-bottom: 16px !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+.lead {
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
+  font-family: 'Montserrat', sans-serif !important;
+  color: var(--text-muted) !important;
+}
+
+/* Labels */
+.form-label, label {
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+  margin-bottom: 8px !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Row spacing */
+.row {
+  margin-bottom: 20px !important;
+}
+
+.row.mb-5 {
+  margin-bottom: 30px !important;
+}
+
+.mb-4 {
+  margin-bottom: 32px !important;
+}
+
+.mb-5 {
+  margin-bottom: 48px !important;
+}
+
+/* Icons */
+.fas, .far, .fab {
+  font-family: "Font Awesome 6 Free" !important;
+}
+
+/* Shadow utilities - Subtle for Border Design */
+.shadow-sm {
+  box-shadow: 0 0 0 1px rgba(88, 166, 255, 0.1), 
+              0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Map Container and Content */
+.map-container {
+  border: 2px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  padding: 8px !important;
+  background: transparent !important;
+  min-height: 620px !important;
+  backdrop-filter: none !important;
+  z-index: 1 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.map-content {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 600px !important;
+  position: relative !important;
+}
+
+.map-content iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  box-shadow: 0 0 0 1px rgba(88, 166, 255, 0.1), 
+              0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Ensure the map container is responsive */
+@media (max-width: 768px) {
+  .map-container {
+    min-height: 400px !important;
+  }
+  
+  .map-content {
+    min-height: 400px !important;
+  }
+  
+  .map-content iframe {
+    height: 400px !important;
+  }
+}
+
+/* Folium Map Controls */
+.leaflet-control-layers {
+  background: rgba(22, 27, 34, 0.95) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+.leaflet-control-layers-toggle {
+  background-color: rgba(22, 27, 34, 0.95) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 4px !important;
+}
+
+.leaflet-control-layers-expanded {
+  color: var(--text-primary) !important;
+  padding: 10px !important;
+}
+
+.leaflet-control-layers-expanded label {
+  margin: 5px 0 !important;
+}
+
+.leaflet-bar {
+  background: rgba(22, 27, 34, 0.95) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 8px !important;
+}
+
+.leaflet-bar a {
+  background: rgba(22, 27, 34, 0.95) !important;
+  color: var(--text-primary) !important;
+  border: none !important;
+}
+
+.leaflet-bar a:hover {
+  background: rgba(88, 166, 255, 0.1) !important;
+  color: var(--accent-primary) !important;
+}
+
+/* Folium Popup Styling */
+.leaflet-popup-content-wrapper {
+  background: rgba(22, 27, 34, 0.95) !important;
+  border: 2px solid var(--accent-primary) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--accent-primary) !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  padding: 10px !important;
+  color: var(--text-primary) !important;
+}
+
+/* Folium Mouse Position */
+.leaflet-control-mouseposition {
+  background: rgba(22, 27, 34, 0.95) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 4px !important;
+  padding: 4px 8px !important;
+  color: var(--text-primary) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 12px !important;
+}
+
+/* Plot Container Improvements */
+.plot-container {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 400px !important;
+}
+
+/* Ensure graphs fill their containers properly */
+div[data-dash-is-loading="true"] {
+  min-height: 300px !important;
+}
+
+/* Card body improvements for plot containers */
+.card-body .js-plotly-plot {
+  width: 100% !important;
+  margin: 0 !important;
+  min-height: 350px !important;
+}
+
+/* Fix plotly specific sizing issues */
+.js-plotly-plot .plot-container {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Graph container margin fix */
+.js-plotly-plot > div {
+  margin: 0 auto !important;
+  width: 100% !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container-fluid, .container {
+    padding: 0 12px !important;
+  }
+  
+  .card-body {
+    padding: 16px !important;
+  }
+  
+  .kpi-value {
+    font-size: 1.5rem !important;
+  }
+  
+  .navbar {
+    padding: 12px 0 !important;
+  }
+  
+  .page-header h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  .section-title {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* Additional Layout Improvements */
+
+/* Page spacing and layout */
+.main-content {
+  padding: 15px 0;
+  min-height: calc(100vh - 120px);
+}
+
+.page-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+/* Improved section spacing */
+.section-title {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  font-size: 1.4rem !important;
+  border-bottom: 2px solid var(--accent-primary) !important;
+  padding-bottom: 6px !important;
+  margin-bottom: 20px !important;
+  display: inline-block;
+}
+
+.page-header {
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 2.2rem !important;
+  margin-bottom: 8px !important;
+  font-weight: 600 !important;
+}
+
+.page-header .lead {
+  font-size: 1.05rem !important;
+  opacity: 0.8;
+  font-weight: 400 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Row and column spacing improvements */
+.row {
+  margin-bottom: 20px !important;
+}
+
+.row.mb-5 {
+  margin-bottom: 30px !important;
+}
+
+/* Text improvements */
+.text-muted {
+  color: var(--text-secondary) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.5 !important;
+}
+
+/* Icon styling in headers */
+.card-title i,
+.section-title i,
+.page-header h1 i {
+  color: var(--accent-primary) !important;
+  margin-right: 8px !important;
+}
+
+/* Loading states */
+.dash-loading {
+  opacity: 0.7 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* Text accent color class */
+.text-accent {
+  color: var(--accent-primary) !important;
+}
+
+/* Improved spacing for mobile */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 10px 0;
+  }
+  
+  .page-header h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  .section-title {
+    font-size: 1.2rem !important;
+  }
+  
+  .card-body {
+    padding: 15px !important;
+  }
+  
+  .card-header {
+    padding: 10px 15px !important;
+  }
+  
+  .row {
+    margin-bottom: 15px !important;
+  }
+}
+
+/* Custom utility classes */
+.text-accent {
+  color: var(--accent-primary) !important;
+  text-shadow: 0 0 5px rgba(88, 166, 255, 0.3) !important;
+}
+
+.text-warning {
+  color: var(--warning-color) !important;
+  text-shadow: 0 0 5px rgba(247, 144, 0, 0.3) !important;
+}
+
+.text-success {
+  color: var(--success-color) !important;
+  text-shadow: 0 0 5px rgba(46, 160, 67, 0.3) !important;
+}
+
+.text-info {
+  color: #17a2b8 !important;
+  text-shadow: 0 0 5px rgba(23, 162, 184, 0.3) !important;
+}
+
+.bg-card {
+  background: var(--bg-card) !important;
+}
+
+.border-subtle {
+  border-color: var(--border-color) !important;
+}
+
+/* Modern React Select styling for Dash */
+div[data-dash-is-loading="true"] .Select {
+  z-index: 1000 !important;
+}
+
+.Select-value-label {
+  color: var(--text-primary) !important;
+}
+
+.Select-placeholder {
+  color: var(--text-muted) !important;
+}
+
+.Select-arrow-zone {
+  color: var(--text-secondary) !important;
+}
+
+.Select-control:hover {
+  border-color: var(--accent-primary) !important;
+}
+
+.Select-control.is-focused {
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25) !important;
+}
+
+/* Model Dropdown Specific Styling */
+.model-dropdown {
+  z-index: 1500 !important;
+  position: relative !important;
+}
+
+.model-dropdown .Select-control {
+  background: rgba(22, 27, 34, 0.95) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  min-height: 50px !important;
+  z-index: 1500 !important;
+  padding: 4px 8px !important;
+  cursor: pointer !important;
+}
+
+.model-dropdown .Select-control:hover {
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.1) !important;
+}
+
+.model-dropdown .Select-control.is-focused {
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25) !important;
+}
+
+.model-dropdown .Select-menu-outer {
+  background: var(--bg-secondary) !important;
+  border: 2px solid var(--accent-primary) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7) !important;
+  z-index: 1501 !important;
+  margin-top: 4px !important;
+  overflow: hidden !important;
+  position: absolute !important;
+}
+
+.model-dropdown .Select-menu {
+  background: transparent !important;
+  border-radius: 6px !important;
+}
+
+.model-dropdown .Select-option {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  padding: 14px 16px !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.model-dropdown .Select-option:last-child {
+  border-bottom: none !important;
+}
+
+.model-dropdown .Select-option:hover {
+  background: var(--hover-bg) !important;
+  color: var(--accent-primary) !important;
+  transform: translateX(4px) !important;
+}
+
+.model-dropdown .Select-option.is-focused {
+  background: var(--hover-bg) !important;
+  color: var(--accent-primary) !important;
+}
+
+.model-dropdown .Select-option.is-selected {
+  background: rgba(88, 166, 255, 0.1) !important;
+  color: var(--accent-primary) !important;
+  font-weight: 600 !important;
+}
+
+.model-dropdown .Select-value-label {
+  color: var(--text-primary) !important;
+  font-weight: 500 !important;
+  font-size: 15px !important;
+}
+
+.model-dropdown .Select-placeholder {
+  color: var(--text-muted) !important;
+  font-style: italic !important;
+}
+
+.model-dropdown .Select-arrow-zone {
+  color: var(--text-secondary) !important;
+  width: 30px !important;
+  padding-right: 8px !important;
+}
+
+.model-dropdown .Select-arrow {
+  border-color: var(--text-secondary) transparent transparent !important;
+  border-width: 6px 6px 0 !important;
+}
+
+/* Additional Dash Dropdown Component Styling */
+._dash-dropdown {
+  z-index: 1000 !important;
+}
+
+._dash-dropdown .VirtualizedSelectFocusedOption {
+  background: var(--hover-bg) !important;
+  color: var(--accent-primary) !important;
+}
+
+._dash-dropdown .Select-menu-outer .VirtualizedSelectOption {
+  padding: 12px 16px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+._dash-dropdown .Select-menu-outer .VirtualizedSelectOption:hover {
+  background: var(--hover-bg) !important;
+  color: var(--accent-primary) !important;
+}
+
+/* Ensure Dash dropdowns work in all contexts */
+div[data-dash-is-loading="false"] .dash-dropdown .Select-menu-outer {
+  z-index: 1001 !important;
+}
+
+/* Fix for React Select v1 used by Dash */
+.Select--single > .Select-control .Select-value {
+  color: var(--text-primary) !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+.Select-input {
+  color: var(--text-primary) !important;
+}
+
+.Select-input input {
+  color: var(--text-primary) !important;
+}
+
+/* High Priority Z-Index Management */
+.Select-menu-outer,
+.dash-dropdown .Select-menu-outer,
+.model-dropdown .Select-menu-outer,
+._dash-dropdown .Select-menu-outer {
+  z-index: 1600 !important;
+  position: fixed !important;
+}
+
+.DateRangePicker__picker,
+.DateRangePicker__tether-target {
+  z-index: 1600 !important;
+  position: fixed !important;
+}
+
+/* Ensure KPI cards stay below interactive elements */
+.kpi-card {
+  z-index: 10 !important;
+  position: relative !important;
+}
+
+/* Ensure all cards stay below interactive elements */
+.card {
+  z-index: 20 !important;
+  position: relative !important;
+}
+
+/* Ensure dropdowns work in all browsers */
+.Select-menu-outer {
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+}
+
+/* Updated Date Picker Styling */
+.date-picker-container {
+    background: var(--bg-tertiary) !important;
+    border: 2px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    transition: var(--transition) !important;
+    position: relative !important;
+}
+
+.date-picker-container:hover {
+    border-color: var(--accent-primary) !important;
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.1) !important;
+}
+
+.date-picker-label {
+    color: var(--text-secondary) !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+    text-align: center !important;
+}
+
+/* Calendar Positioning Fix */
+.SingleDatePicker {
+    width: 100% !important;
+}
+
+.SingleDatePickerInput {
+    background: transparent !important;
+    border: none !important;
+    width: 100% !important;
+}
+
+.SingleDatePicker_picker {
+    position: absolute !important;
+    top: calc(100% + 10px) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: var(--bg-secondary) !important;
+    border: 2px solid var(--accent-primary) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8) !important;
+    z-index: 1600 !important;
+}
+
+/* Arrow Container Styling */
+.arrow-container {
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 15px !important;
+}
+
+.arrow-container .fa-arrow-right {
+    color: var(--accent-primary) !important;
+    font-size: 20px !important;
+    opacity: 0.8 !important;
+    transition: var(--transition) !important;
+}
+
+.controls-section:hover .arrow-container .fa-arrow-right {
+    opacity: 1 !important;
+    transform: translateX(3px) !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+    .arrow-container {
+        transform: rotate(90deg) !important;
+        padding: 10px 0 !important;
+    }
+    
+    .controls-section:hover .arrow-container .fa-arrow-right {
+        transform: translateX(3px) rotate(0deg) !important;
+    }
+}
+
+/* Input Styling Enhancement */
+.DateInput_input {
+    background: rgba(22, 27, 34, 0.6) !important;
+    border: 2px solid var(--border-color) !important;
+    border-radius: 6px !important;
+    color: var(--text-primary) !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    padding: 8px 12px !important;
+    text-align: center !important;
+    width: 100% !important;
+    transition: var(--transition) !important;
+}
+
+.DateInput_input:hover {
+    border-color: var(--accent-primary) !important;
+    background: rgba(88, 166, 255, 0.05) !important;
+}
+
+.DateInput_input:focus {
+    border-color: var(--accent-primary) !important;
+    background: rgba(88, 166, 255, 0.08) !important;
+    box-shadow: 0 0 0 0.2rem rgba(88, 166, 255, 0.25) !important;
+}
+
+/* Calendar Enhancement */
+.DayPicker {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background: var(--bg-secondary) !important;
+}
+
+.CalendarMonth_caption {
+    padding-top: 15px !important;
+    padding-bottom: 35px !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+}
+
+/* Controls Section Enhancement */
+.controls-section {
+    background: rgba(22, 27, 34, 0.7) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 2px solid var(--border-color) !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+}
+
+.controls-section h5 {
+    color: var(--accent-primary) !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 20px !important;
+    text-align: center !important;
+}
+
+/* Date Picker Keyboard Shortcuts Panel */
+.DayPickerKeyboardShortcuts_panel {
+    background: var(--bg-secondary) !important;
+    border: 2px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+    color: var(--text-primary) !important;
+    padding: 16px !important;
+}
+
+.DayPickerKeyboardShortcuts_buttonReset {
+    color: var(--text-primary) !important;
+    font-size: 14px !important;
+    background: transparent !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 4px !important;
+    padding: 4px 8px !important;
+}
+
+.DayPickerKeyboardShortcuts_show {
+    display: none !important;
+}
+
+/* Enhanced Date Input Styling */
+.DateInput {
+    width: 100% !important;
+}
+
+.DateInput_input {
+    text-align: center !important;
+    font-size: 1rem !important;
+    padding: 10px 12px !important;
+    background: rgba(22, 27, 34, 0.8) !important;
+    border: 2px solid var(--border-color) !important;
+    border-radius: 8px !important;
+    color: var(--text-primary) !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px !important;
+}
+
+.DateInput_input:hover {
+    border-color: var(--accent-primary) !important;
+    background: rgba(88, 166, 255, 0.05) !important;
+}
+
+.DateInput_input:focus {
+    border-color: var(--accent-primary) !important;
+    background: rgba(88, 166, 255, 0.08) !important;
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2) !important;
+}
+
+/* Date Picker Container Enhancement */
+.date-picker-container {
+    background: rgba(22, 27, 34, 0.8) !important;
+    border: 2px solid var(--border-color) !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+    transition: var(--transition) !important;
+}
+
+.date-picker-container:hover {
+    border-color: var(--accent-primary) !important;
+    box-shadow: 0 4px 20px rgba(88, 166, 255, 0.15) !important;
+    background: rgba(22, 27, 34, 0.9) !important;
+}
+
+/* Remove Label Text */
+.date-picker-label {
+    display: none !important;
+}

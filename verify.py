@@ -26,7 +26,7 @@ def main():
     # Check core modules
     core_modules = [
         'dash', 'pandas', 'plotly', 'dash_bootstrap_components', 
-        'sklearn', 'xgboost', 'catboost'
+        'sklearn', 'xgboost', 'catboost', 'gunicorn'
     ]
     
     missing_modules = []

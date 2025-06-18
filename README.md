@@ -1,4 +1,5 @@
 # Seismic Modeling Plotly Dashboard
+## on Collaboration with: Bishnu Prasad Sharma (https://github.com/bishnu820)
 
 An interactive web application for analyzing earthquake data in Nepal using machine learning models for prediction and risk assessment.
 

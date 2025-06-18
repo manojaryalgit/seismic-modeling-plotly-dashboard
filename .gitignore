@@ -12,6 +12,7 @@ build/
 venv/
 env/
 ENV/
+earthquake/
 
 # Jupyter Notebook
 .ipynb_checkpoints

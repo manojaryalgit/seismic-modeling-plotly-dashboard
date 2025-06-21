@@ -55,9 +55,9 @@ fig_corr = go.Figure(data=go.Heatmap(
 fig_corr.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(28, 33, 40, 0.95)',
-    height=600,
+    height=800,
     title={'text': 'Feature Correlation Matrix', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-    margin=dict(t=80, b=40, l=100, r=40),
+    margin=dict(t=100, b=100, l=120, r=100),
     xaxis={'side': 'bottom', 'tickangle': 45},
     yaxis={'side': 'left'}
 )
@@ -118,9 +118,9 @@ for i, feature in enumerate(features_to_plot):
 fig_distributions.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(28, 33, 40, 0.95)',
-    height=600,
+    height=900,
     title={'text': 'Statistical Distributions with Normal Fits', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-    margin=dict(t=80, b=40, l=60, r=40),
+    margin=dict(t=100, b=100, l=80, r=80),
     showlegend=False
 )
 
@@ -176,9 +176,9 @@ for i, feature in enumerate(qq_features):
 fig_qq.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(28, 33, 40, 0.95)',
-    height=600,
+    height=800,
     title={'text': 'Q-Q Plots for Normality Assessment', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-    margin=dict(t=80, b=40, l=60, r=40),
+    margin=dict(t=100, b=100, l=80, r=80),
     showlegend=False
 )
 
@@ -236,9 +236,9 @@ if len(df_numerical) > 0 and len(df_numerical.columns) > 2:
     fig_pca.update_layout(
         template="plotly_dark",
         paper_bgcolor='rgba(28, 33, 40, 0.95)',
-        height=500,
+        height=700,
         title={'text': 'Principal Component Analysis', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-        margin=dict(t=80, b=40, l=60, r=40),
+        margin=dict(t=100, b=100, l=80, r=80),
         showlegend=False
     )
 else:
@@ -248,7 +248,7 @@ else:
         paper_bgcolor='rgba(28, 33, 40, 0.95)',
         height=500,
         title={'text': 'Principal Component Analysis - Insufficient Data', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-        margin=dict(t=80, b=40, l=60, r=40)
+        margin=dict(t=100, b=100, l=80, r=80)
     )
 
 # 5. Statistical Summary Table
@@ -272,9 +272,9 @@ fig_summary = go.Figure(data=[go.Table(
 fig_summary.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(28, 33, 40, 0.95)',
-    height=400,
+    height=500,
     title={'text': 'Descriptive Statistics Summary', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-    margin=dict(t=80, b=40, l=40, r=40)
+    margin=dict(t=100, b=80, l=60, r=60)
 )
 
 # 6. Box Plots for Outlier Detection
@@ -307,9 +307,9 @@ for i, feature in enumerate(box_features):
 fig_boxplots.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(28, 33, 40, 0.95)',
-    height=600,
+    height=900,
     title={'text': 'Box Plots for Outlier Detection', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-    margin=dict(t=80, b=40, l=60, r=40)
+    margin=dict(t=100, b=100, l=80, r=80)
 )
 
 # 7. Skewness and Kurtosis Analysis
@@ -363,9 +363,9 @@ if not skew_kurt_df.empty:
 fig_skew_kurt.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(28, 33, 40, 0.95)',
-    height=500,
+    height=700,
     title={'text': 'Skewness and Kurtosis Analysis', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-    margin=dict(t=80, b=40, l=60, r=40),
+    margin=dict(t=100, b=100, l=80, r=80),
     showlegend=False,
     xaxis=dict(tickangle=45),
     xaxis2=dict(tickangle=45)
@@ -424,7 +424,7 @@ layout = html.Div([
                 dbc.Card([
                     dbc.CardHeader([
                         html.H4([
-                            html.I(className="fas fa-chart-line me-2"),
+                            html.I (className="fas fa-chart-line me-2"),
                             "Statistical Distributions"
                         ], className="card-title mb-0")
                     ], className="bg-transparent border-0 pb-0"),
@@ -445,7 +445,7 @@ layout = html.Div([
                 dbc.Card([
                     dbc.CardHeader([
                         html.H4([
-                            html.I(className="fas fa-square-root-alt me-2"),
+                            html.I (className="fas fa-square-root-alt me-2"),
                             "Normality Assessment"
                         ], className="card-title mb-0")
                     ], className="bg-transparent border-0 pb-0"),
@@ -466,7 +466,7 @@ layout = html.Div([
                 dbc.Card([
                     dbc.CardHeader([
                         html.H4([
-                            html.I(className="fas fa-chart-simple me-2"),
+                            html.I (className="fas fa-chart-simple me-2"),
                             "Shape Analysis"
                         ], className="card-title mb-0")
                     ], className="bg-transparent border-0 pb-0"),
@@ -486,7 +486,7 @@ layout = html.Div([
     # Outlier Detection Section
     html.Div([
         html.H2([
-            html.I(className="fas fa-search me-2 text-accent"),
+            html.I (className="fas fa-search me-2 text-accent"),
             "Outlier Detection"
         ], className="section-title mb-4"),
         
@@ -495,7 +495,7 @@ layout = html.Div([
                 dbc.Card([
                     dbc.CardHeader([
                         html.H4([
-                            html.I(className="fas fa-box me-2"),
+                            html.I (className="fas fa-box me-2"),
                             "Box Plot Analysis"
                         ], className="card-title mb-0")
                     ], className="bg-transparent border-0 pb-0"),
@@ -515,7 +515,7 @@ layout = html.Div([
     # Dimensionality Reduction Section
     html.Div([
         html.H2([
-            html.I(className="fas fa-compress me-2 text-accent"),
+            html.I (className="fas fa-compress me-2 text-accent"),
             "Dimensionality Reduction"
         ], className="section-title mb-4"),
         
@@ -524,7 +524,7 @@ layout = html.Div([
                 dbc.Card([
                     dbc.CardHeader([
                         html.H4([
-                            html.I(className="fas fa-vector-square me-2"),
+                            html.I (className="fas fa-vector-square me-2"),
                             "Principal Component Analysis"
                         ], className="card-title mb-0")
                     ], className="bg-transparent border-0 pb-0"),
@@ -544,7 +544,7 @@ layout = html.Div([
     # Summary Statistics Section
     html.Div([
         html.H2([
-            html.I(className="fas fa-table me-2 text-accent"),
+            html.I (className="fas fa-table me-2 text-accent"),
             "Summary Statistics"
         ], className="section-title mb-4"),
         
@@ -553,7 +553,7 @@ layout = html.Div([
                 dbc.Card([
                     dbc.CardHeader([
                         html.H4([
-                            html.I(className="fas fa-list-alt me-2"),
+                            html.I (className="fas fa-list-alt me-2"),
                             "Descriptive Statistics"
                         ], className="card-title mb-0")
                     ], className="bg-transparent border-0 pb-0"),

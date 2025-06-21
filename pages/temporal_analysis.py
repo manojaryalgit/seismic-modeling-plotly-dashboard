@@ -31,7 +31,7 @@ df = load_data()
 
 # --- Create Enhanced Temporal Figures ---
 
-# 1. Long-term Earthquake Activity Timeline
+# 1. Long-term Earthquake Activity Timeline (SPLIT INTO 3 FIGURES)
 df_yearly = df.groupby('year').agg({
     'MAG': ['count', 'mean', 'max', 'std'],
     'DEPTH': 'mean'
@@ -39,199 +39,193 @@ df_yearly = df.groupby('year').agg({
 df_yearly.columns = ['_'.join(col).strip() for col in df_yearly.columns]
 df_yearly = df_yearly.reset_index()
 
-fig_timeline = make_subplots(
-    rows=3, cols=1,
-    subplot_titles=('Yearly Earthquake Count', 'Average Magnitude per Year', 'Maximum Magnitude per Year'),
-    vertical_spacing=0.08,
-    shared_xaxes=True
-)
-
-# Earthquake count
-fig_timeline.add_trace(
-    go.Scatter(
-        x=df_yearly['year'], 
-        y=df_yearly['MAG_count'],
-        mode='lines+markers',
-        line=dict(color='#58a6ff', width=3),
-        marker=dict(size=8),
-        name='Count',
-        hovertemplate='<b>Year:</b> %{x}<br>' +
-                      '<b>Earthquakes:</b> %{y}<extra></extra>'
-    ),
-    row=1, col=1
-)
-
-# Average magnitude
-fig_timeline.add_trace(
-    go.Scatter(
-        x=df_yearly['year'], 
-        y=df_yearly['MAG_mean'],
-        mode='lines+markers',
-        line=dict(color='#2ea043', width=3),
-        marker=dict(size=8),
-        name='Avg Magnitude',
-        hovertemplate='<b>Year:</b> %{x}<br>' +
-                      '<b>Avg Magnitude:</b> %{y:.2f}<extra></extra>'
-    ),
-    row=2, col=1
-)
-
-# Maximum magnitude
-fig_timeline.add_trace(
-    go.Scatter(
-        x=df_yearly['year'], 
-        y=df_yearly['MAG_max'],
-        mode='lines+markers',
-        line=dict(color='#f85149', width=3),
-        marker=dict(size=8),
-        name='Max Magnitude',
-        hovertemplate='<b>Year:</b> %{x}<br>' +
-                      '<b>Max Magnitude:</b> %{y:.1f}<extra></extra>'
-    ),
-    row=3, col=1
-)
-
-fig_timeline.update_layout(
+fig_timeline_count = go.Figure(go.Scatter(
+    x=df_yearly['year'],
+    y=df_yearly['MAG_count'],
+    mode='lines+markers',
+    line=dict(color='#58a6ff', width=3),
+    marker=dict(size=8),
+    name='Count',
+    hovertemplate='<b>Year:</b> %{x}<br><b>Earthquakes:</b> %{y}<extra></extra>'
+))
+fig_timeline_count.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(28, 33, 40, 0.95)',
-    height=700,
-    title={'text': 'Long-term Earthquake Activity Trends', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-    margin=dict(t=80, b=40, l=60, r=40),
+    height=400,
+    title={'text': 'Yearly Earthquake Count', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 16, 'color': '#f0f6fc'}},
+    margin=dict(t=60, b=60, l=60, r=40),
+    xaxis_title='Year',
+    yaxis_title='Count',
     showlegend=False
 )
 
-# 2. Seasonal and Cyclical Patterns
-fig_seasonal = make_subplots(
-    rows=2, cols=2,
-    subplot_titles=('Monthly Pattern', 'Quarterly Pattern', 'Weekly Pattern', 'Hourly Pattern'),
-    specs=[[{"type": "bar"}, {"type": "bar"}],
-           [{"type": "bar"}, {"type": "bar"}]]
+fig_timeline_avg = go.Figure(go.Scatter(
+    x=df_yearly['year'],
+    y=df_yearly['MAG_mean'],
+    mode='lines+markers',
+    line=dict(color='#2ea043', width=3),
+    marker=dict(size=8),
+    name='Avg Magnitude',
+    hovertemplate='<b>Year:</b> %{x}<br><b>Avg Magnitude:</b> %{y:.2f}<extra></extra>'
+))
+fig_timeline_avg.update_layout(
+    template="plotly_dark",
+    paper_bgcolor='rgba(28, 33, 40, 0.95)',
+    height=400,
+    title={'text': 'Average Magnitude per Year', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 16, 'color': '#f0f6fc'}},
+    margin=dict(t=60, b=60, l=60, r=40),
+    xaxis_title='Year',
+    yaxis_title='Average Magnitude',
+    showlegend=False
 )
 
-# Monthly pattern
+fig_timeline_max = go.Figure(go.Scatter(
+    x=df_yearly['year'],
+    y=df_yearly['MAG_max'],
+    mode='lines+markers',
+    line=dict(color='#f85149', width=3),
+    marker=dict(size=8),
+    name='Max Magnitude',
+    hovertemplate='<b>Year:</b> %{x}<br><b>Max Magnitude:</b> %{y:.1f}<extra></extra>'
+))
+fig_timeline_max.update_layout(
+    template="plotly_dark",
+    paper_bgcolor='rgba(28, 33, 40, 0.95)',
+    height=400,
+    title={'text': 'Maximum Magnitude per Year', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 16, 'color': '#f0f6fc'}},
+    margin=dict(t=60, b=60, l=60, r=40),
+    xaxis_title='Year',
+    yaxis_title='Maximum Magnitude',
+    showlegend=False
+)
+
+# 2. Seasonal and Cyclical Patterns (SPLIT INTO 4 FIGURES)
 monthly_stats = df.groupby('month').agg({'MAG': ['count', 'mean']}).round(2)
 monthly_stats.columns = ['count', 'avg_mag']
 monthly_stats = monthly_stats.reset_index()
 month_names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
-fig_seasonal.add_trace(
-    go.Bar(
-        x=[month_names[i-1] for i in monthly_stats['month']], 
-        y=monthly_stats['count'],
-        marker_color='#58a6ff',
-        name='Monthly Count',
-        hovertemplate='<b>Month:</b> %{x}<br>' +
-                      '<b>Count:</b> %{y}<extra></extra>'
-    ),
-    row=1, col=1
+fig_seasonal_month = go.Figure(go.Bar(
+    x=[month_names[i-1] for i in monthly_stats['month']],
+    y=monthly_stats['count'],
+    marker_color='#58a6ff',
+    name='Monthly Count',
+    hovertemplate='<b>Month:</b> %{x}<br><b>Count:</b> %{y}<extra></extra>'
+))
+fig_seasonal_month.update_layout(
+    template="plotly_dark",
+    paper_bgcolor='rgba(28, 33, 40, 0.95)',
+    height=400,
+    title={'text': 'Monthly Pattern', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 16, 'color': '#f0f6fc'}},
+    margin=dict(t=60, b=60, l=60, r=40),
+    xaxis_title='Month',
+    yaxis_title='Count',
+    showlegend=False
 )
 
-# Quarterly pattern
 quarterly_stats = df.groupby('quarter').agg({'MAG': ['count', 'mean']}).round(2)
 quarterly_stats.columns = ['count', 'avg_mag']
 quarterly_stats = quarterly_stats.reset_index()
-
-fig_seasonal.add_trace(
-    go.Bar(
-        x=['Q1', 'Q2', 'Q3', 'Q4'], 
-        y=quarterly_stats['count'],
-        marker_color='#2ea043',
-        name='Quarterly Count',
-        hovertemplate='<b>Quarter:</b> %{x}<br>' +
-                      '<b>Count:</b> %{y}<extra></extra>'
-    ),
-    row=1, col=2
+fig_seasonal_quarter = go.Figure(go.Bar(
+    x=['Q1', 'Q2', 'Q3', 'Q4'],
+    y=quarterly_stats['count'],
+    marker_color='#2ea043',
+    name='Quarterly Count',
+    hovertemplate='<b>Quarter:</b> %{x}<br><b>Count:</b> %{y}<extra></extra>'
+))
+fig_seasonal_quarter.update_layout(
+    template="plotly_dark",
+    paper_bgcolor='rgba(28, 33, 40, 0.95)',
+    height=400,
+    title={'text': 'Quarterly Pattern', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 16, 'color': '#f0f6fc'}},
+    margin=dict(t=60, b=60, l=60, r=40),
+    xaxis_title='Quarter',
+    yaxis_title='Count',
+    showlegend=False
 )
 
-# Weekly pattern
 weekly_stats = df.groupby('weekday').agg({'MAG': ['count', 'mean']}).round(2)
 weekly_stats.columns = ['count', 'avg_mag']
 weekly_stats = weekly_stats.reset_index()
 weekday_names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-
-fig_seasonal.add_trace(
-    go.Bar(
-        x=[weekday_names[i] for i in weekly_stats['weekday']], 
-        y=weekly_stats['count'],
-        marker_color='#d29922',
-        name='Weekly Count',
-        hovertemplate='<b>Day:</b> %{x}<br>' +
-                      '<b>Count:</b> %{y}<extra></extra>'
-    ),
-    row=2, col=1
-)
-
-# Hourly pattern
-hourly_stats = df.groupby('hour').agg({'MAG': ['count', 'mean']}).round(2)
-hourly_stats.columns = ['count', 'avg_mag']
-hourly_stats = hourly_stats.reset_index()
-
-fig_seasonal.add_trace(
-    go.Bar(
-        x=hourly_stats['hour'], 
-        y=hourly_stats['count'],
-        marker_color='#f85149',
-        name='Hourly Count',
-        hovertemplate='<b>Hour:</b> %{x}:00<br>' +
-                      '<b>Count:</b> %{y}<extra></extra>'
-    ),
-    row=2, col=2
-)
-
-fig_seasonal.update_layout(
+fig_seasonal_week = go.Figure(go.Bar(
+    x=[weekday_names[i] for i in weekly_stats['weekday']],
+    y=weekly_stats['count'],
+    marker_color='#d29922',
+    name='Weekly Count',
+    hovertemplate='<b>Day:</b> %{x}<br><b>Count:</b> %{y}<extra></extra>'
+))
+fig_seasonal_week.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(28, 33, 40, 0.95)',
-    height=600,
-    title={'text': 'Seasonal and Cyclical Patterns', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-    margin=dict(t=80, b=40, l=60, r=40),
+    height=400,
+    title={'text': 'Weekly Pattern', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 16, 'color': '#f0f6fc'}},
+    margin=dict(t=60, b=60, l=60, r=40),
+    xaxis_title='Day',
+    yaxis_title='Count',
     showlegend=False
 )
 
-# 3. Earthquake Sequence Analysis
+hourly_stats = df.groupby('hour').agg({'MAG': ['count', 'mean']}).round(2)
+hourly_stats.columns = ['count', 'avg_mag']
+hourly_stats = hourly_stats.reset_index()
+fig_seasonal_hour = go.Figure(go.Bar(
+    x=hourly_stats['hour'],
+    y=hourly_stats['count'],
+    marker_color='#f85149',
+    name='Hourly Count',
+    hovertemplate='<b>Hour:</b> %{x}:00<br><b>Count:</b> %{y}<extra></extra>'
+))
+fig_seasonal_hour.update_layout(
+    template="plotly_dark",
+    paper_bgcolor='rgba(28, 33, 40, 0.95)',
+    height=400,
+    title={'text': 'Hourly Pattern', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 16, 'color': '#f0f6fc'}},
+    margin=dict(t=60, b=60, l=60, r=40),
+    xaxis_title='Hour',
+    yaxis_title='Count',
+    showlegend=False
+)
+
+# 3. Earthquake Sequence Analysis (SPLIT INTO 2 FIGURES)
 df_sorted = df.sort_values('Date and Time')
 df_sorted['time_diff'] = df_sorted['Date and Time'].diff().dt.total_seconds() / 3600  # hours
 df_sorted['cumulative_count'] = range(1, len(df_sorted) + 1)
 
-fig_sequence = make_subplots(
-    rows=2, cols=1,
-    subplot_titles=('Cumulative Earthquake Count Over Time', 'Time Intervals Between Earthquakes'),
-    vertical_spacing=0.12
-)
-
-# Cumulative count
-fig_sequence.add_trace(
-    go.Scatter(
-        x=df_sorted['Date and Time'], 
-        y=df_sorted['cumulative_count'],
-        mode='lines',
-        line=dict(color='#58a6ff', width=2),
-        name='Cumulative Count',
-        hovertemplate='<b>Date:</b> %{x}<br>' +
-                      '<b>Cumulative Count:</b> %{y}<extra></extra>'
-    ),
-    row=1, col=1
-)
-
-# Time intervals (log scale for better visualization)
-fig_sequence.add_trace(
-    go.Histogram(
-        x=np.log10(df_sorted['time_diff'].dropna()),
-        nbinsx=50,
-        marker_color='#2ea043',
-        opacity=0.8,
-        name='Log Time Intervals',
-        hovertemplate='<b>Log10(Hours):</b> %{x:.2f}<br>' +
-                      '<b>Count:</b> %{y}<extra></extra>'
-    ),
-    row=2, col=1
-)
-
-fig_sequence.update_layout(
+fig_sequence_cum = go.Figure(go.Scatter(
+    x=df_sorted['Date and Time'],
+    y=df_sorted['cumulative_count'],
+    mode='lines',
+    line=dict(color='#58a6ff', width=2),
+    name='Cumulative Count',
+    hovertemplate='<b>Date:</b> %{x}<br><b>Cumulative Count:</b> %{y}<extra></extra>'
+))
+fig_sequence_cum.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(28, 33, 40, 0.95)',
-    height=600,
-    title={'text': 'Earthquake Sequence Analysis', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-    margin=dict(t=80, b=40, l=60, r=40),
+    height=400,
+    title={'text': 'Cumulative Earthquake Count Over Time', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 16, 'color': '#f0f6fc'}},
+    margin=dict(t=60, b=60, l=60, r=40),
+    xaxis_title='Date',
+    yaxis_title='Cumulative Count',
+    showlegend=False
+)
+
+fig_sequence_interval = go.Figure(go.Histogram(
+    x=np.log10(df_sorted['time_diff'].dropna()),
+    nbinsx=50,
+    marker_color='#2ea043',
+    opacity=0.8,
+    name='Log Time Intervals',
+    hovertemplate='<b>Log10(Hours):</b> %{x:.2f}<br><b>Count:</b> %{y}<extra></extra>'
+))
+fig_sequence_interval.update_layout(
+    template="plotly_dark",
+    paper_bgcolor='rgba(28, 33, 40, 0.95)',
+    height=400,
+    title={'text': 'Time Intervals Between Earthquakes', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 16, 'color': '#f0f6fc'}},
+    margin=dict(t=60, b=60, l=60, r=40),
+    xaxis_title='Log10(Hours between events)',
+    yaxis_title='Frequency',
     showlegend=False
 )
 
@@ -295,11 +289,17 @@ fig_evolution.add_trace(go.Scatter(
 fig_evolution.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(28, 33, 40, 0.95)',
-    height=500,
+    height=700,
     title={'text': f'Magnitude Evolution Analysis ({window_size}-Event Rolling Window)', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-    margin=dict(t=80, b=40, l=60, r=40),
+    margin=dict(t=100, b=100, l=80, r=80),  # increased bottom margin
     yaxis_title='Magnitude',
-    xaxis_title='Date'
+    xaxis_title='Date',
+    xaxis=dict(
+        title='Date',
+        showgrid=True,
+        showticklabels=True,
+        tickangle=45  # angled date labels for better readability
+    )
 )
 
 # 5. Frequency-Magnitude Relationship (Gutenberg-Richter)
@@ -347,9 +347,9 @@ if slope != 0:
 fig_gutenberg.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(28, 33, 40, 0.95)',
-    height=500,
+    height=700,
     title={'text': 'Gutenberg-Richter Frequency-Magnitude Relationship', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-    margin=dict(t=80, b=40, l=60, r=40),
+    margin=dict(t=100, b=100, l=80, r=80),
     yaxis_title='Cumulative Number of Earthquakes',
     xaxis_title='Magnitude',
     yaxis_type='log'
@@ -385,9 +385,9 @@ for i, threshold in enumerate(thresholds):
 fig_recurrence.update_layout(
     template="plotly_dark",
     paper_bgcolor='rgba(28, 33, 40, 0.95)',
-    height=500,
+    height=700,
     title={'text': 'Earthquake Recurrence Intervals', 'x': 0.5, 'xanchor': 'center', 'font': {'size': 18, 'color': '#f0f6fc'}},
-    margin=dict(t=80, b=40, l=60, r=40),
+    margin=dict(t=100, b=100, l=80, r=80),
     xaxis_title='Recurrence Interval (years)',
     yaxis_title='Frequency',
     barmode='overlay'
@@ -408,7 +408,7 @@ layout = html.Div([
     # Long-term Trends Section
     html.Div([
         html.H2([
-            html.I(className="fas fa-chart-line me-2 text-accent"),
+            html.I (className="fas fa-chart-line me-2 text-accent"),
             "Long-term Trends"
         ], className="section-title mb-4"),
         
@@ -417,17 +417,16 @@ layout = html.Div([
                 dbc.Card([
                     dbc.CardHeader([
                         html.H4([
-                            html.I(className="fas fa-calendar-alt me-2"),
+                            html.I (className="fas fa-calendar-alt me-2"),
                             "Earthquake Activity Timeline"
                         ], className="card-title mb-0")
                     ], className="bg-transparent border-0 pb-0"),
                     dbc.CardBody([
                         html.P("Long-term trends in earthquake frequency, average magnitude, and maximum magnitude per year", 
                                className="text-muted mb-3"),
-                        dcc.Graph(
-                            figure=fig_timeline,
-                            config={'displayModeBar': True, 'displaylogo': False}
-                        )
+                        dcc.Graph(figure=fig_timeline_count, config={'displayModeBar': True, 'displaylogo': False}),
+                        dcc.Graph(figure=fig_timeline_avg, config={'displayModeBar': True, 'displaylogo': False}),
+                        dcc.Graph(figure=fig_timeline_max, config={'displayModeBar': True, 'displaylogo': False})
                     ], className="p-4")
                 ], className="shadow-sm")
             ], width=12)
@@ -438,7 +437,7 @@ layout = html.Div([
                 dbc.Card([
                     dbc.CardHeader([
                         html.H4([
-                            html.I(className="fas fa-arrow-trend-up me-2"),
+                            html.I (className="fas fa-arrow-trend-up me-2"),
                             "Magnitude Evolution"
                         ], className="card-title mb-0")
                     ], className="bg-transparent border-0 pb-0"),
@@ -458,7 +457,7 @@ layout = html.Div([
     # Cyclical Patterns Section
     html.Div([
         html.H2([
-            html.I(className="fas fa-sync-alt me-2 text-accent"),
+            html.I (className="fas fa-sync-alt me-2 text-accent"),
             "Cyclical and Seasonal Patterns"
         ], className="section-title mb-4"),
         
@@ -467,17 +466,17 @@ layout = html.Div([
                 dbc.Card([
                     dbc.CardHeader([
                         html.H4([
-                            html.I(className="fas fa-calendar me-2"),
+                            html.I (className="fas fa-calendar me-2"),
                             "Seasonal Analysis"
                         ], className="card-title mb-0")
                     ], className="bg-transparent border-0 pb-0"),
                     dbc.CardBody([
                         html.P("Monthly, quarterly, weekly, and hourly patterns in earthquake occurrence", 
                                className="text-muted mb-3"),
-                        dcc.Graph(
-                            figure=fig_seasonal,
-                            config={'displayModeBar': True, 'displaylogo': False}
-                        )
+                        dcc.Graph(figure=fig_seasonal_month, config={'displayModeBar': True, 'displaylogo': False}),
+                        dcc.Graph(figure=fig_seasonal_quarter, config={'displayModeBar': True, 'displaylogo': False}),
+                        dcc.Graph(figure=fig_seasonal_week, config={'displayModeBar': True, 'displaylogo': False}),
+                        dcc.Graph(figure=fig_seasonal_hour, config={'displayModeBar': True, 'displaylogo': False})
                     ], className="p-4")
                 ], className="shadow-sm")
             ], width=12)
@@ -487,7 +486,7 @@ layout = html.Div([
     # Sequence Analysis Section
     html.Div([
         html.H2([
-            html.I(className="fas fa-list-ol me-2 text-accent"),
+            html.I (className="fas fa-list-ol me-2 text-accent"),
             "Sequence Analysis"
         ], className="section-title mb-4"),
         
@@ -496,17 +495,15 @@ layout = html.Div([
                 dbc.Card([
                     dbc.CardHeader([
                         html.H4([
-                            html.I(className="fas fa-step-forward me-2"),
+                            html.I (className="fas fa-step-forward me-2"),
                             "Earthquake Sequences"
                         ], className="card-title mb-0")
                     ], className="bg-transparent border-0 pb-0"),
                     dbc.CardBody([
                         html.P("Cumulative earthquake count over time and distribution of time intervals between events", 
                                className="text-muted mb-3"),
-                        dcc.Graph(
-                            figure=fig_sequence,
-                            config={'displayModeBar': True, 'displaylogo': False}
-                        )
+                        dcc.Graph(figure=fig_sequence_cum, config={'displayModeBar': True, 'displaylogo': False}),
+                        dcc.Graph(figure=fig_sequence_interval, config={'displayModeBar': True, 'displaylogo': False})
                     ], className="p-4")
                 ], className="shadow-sm")
             ], width=12)
@@ -516,7 +513,7 @@ layout = html.Div([
     # Statistical Analysis Section
     html.Div([
         html.H2([
-            html.I(className="fas fa-chart-bar me-2 text-accent"),
+            html.I (className="fas fa-chart-bar me-2 text-accent"),
             "Statistical Analysis"
         ], className="section-title mb-4"),
         
@@ -525,7 +522,7 @@ layout = html.Div([
                 dbc.Card([
                     dbc.CardHeader([
                         html.H4([
-                            html.I(className="fas fa-wave-square me-2"),
+                            html.I (className="fas fa-wave-square me-2"),
                             "Gutenberg-Richter Relationship"
                         ], className="card-title mb-0")
                     ], className="bg-transparent border-0 pb-0"),
@@ -544,7 +541,7 @@ layout = html.Div([
                 dbc.Card([
                     dbc.CardHeader([
                         html.H4([
-                            html.I(className="fas fa-redo me-2"),
+                            html.I (className="fas fa-redo me-2"),
                             "Recurrence Analysis"
                         ], className="card-title mb-0")
                     ], className="bg-transparent border-0 pb-0"),

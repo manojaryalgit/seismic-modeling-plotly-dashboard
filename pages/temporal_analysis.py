@@ -298,7 +298,9 @@ fig_evolution.update_layout(
         title='Date',
         showgrid=True,
         showticklabels=True,
-        tickangle=45  # angled date labels for better readability
+        showline=True,
+        linecolor='#f0f6fc',
+        tickangle=45
     )
 )
 

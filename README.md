@@ -3,8 +3,6 @@
 
 An interactive web application for analyzing earthquake data in Nepal using machine learning models for prediction and risk assessment.
 
-![Seismic Dashboard](https://github.com/manojaryalgit/seismic-modeling-plotly-dashboard/raw/main/assets/dashboard_preview.png)
-
 ## Features
 
 - **Interactive Maps**: Explore earthquake locations with heatmaps and marker overlays
@@ -53,6 +51,13 @@ An interactive web application for analyzing earthquake data in Nepal using mach
 - `data/`: Contains earthquake datasets
 - `models/`: Trained machine learning models
 - `pages/`: Dashboard pages for different analyses
+
+## Preview
+
+![Seismic Dashboard](/assets/screenshots/screenshot1.png)
+![Seismic Dashboard](/assets/screenshots/screenshot2.png)
+![Seismic Dashboard](/assets/screenshots/screenshot3.png)
+![Seismic Dashboard](/assets/screenshots/screenshot4.png)
 
 ## Note on Models
 
